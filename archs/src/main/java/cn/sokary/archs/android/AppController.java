@@ -12,9 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.lang.reflect.InvocationTargetException;
 
-//import io.github.sokary.app.db.AppDB;
-//import io.github.sokary.app.utils.Settings;
-
 
 public abstract class AppController extends AppCompatActivity implements AppControllerInterface {
 
