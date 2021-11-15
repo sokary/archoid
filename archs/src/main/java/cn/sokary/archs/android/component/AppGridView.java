@@ -133,7 +133,7 @@ public abstract class AppGridView<T> extends RecyclerView {
     public class GridPagination<T>{
 
         private AppGridView agv;
-        private int pageSize = 3;
+        private int pageSize = 7;
         private int pageIndex=0;
         private int pageTotal;
 
