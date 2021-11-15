@@ -2,18 +2,14 @@ package cn.sokary.archs.android.component;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 
 import java.lang.reflect.InvocationTargetException;
-
 import cn.sokary.archs.android.AppControllerInterface;
 
 
@@ -88,7 +84,6 @@ public abstract class AppSelector<T> extends AlertDialog.Builder implements AppC
             });
         }
     }
-
 
     public void showWindow(AlertDialog.OnKeyListener listener){
         dialog = this.create();

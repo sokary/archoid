@@ -78,16 +78,21 @@ public abstract class AppGridView<T> extends RecyclerView {
     }
     public void bindDataWithPagination( AppControllerInterface opener, List<T> data, Button btnPrevious, Button btnNext, TextView lblLabel ) {
         this.opener = opener;
-
         adapter = new GridAdapter(this, this.data);
-
         pagination = new GridPagination(this, btnPrevious, btnNext, lblLabel, data);
-
         this.setLayoutManager(new LinearLayoutManager(opener.getCxt()));
         this.setItemViewCacheSize(this.data.size());
         this.setAdapter(adapter);
-
     }
+    public void bindDataWithPagination( AppControllerInterface opener, List<T> data, Button btnPrevious, Button btnNext, TextView lblLabel, int pageSize ) {
+        this.opener = opener;
+        adapter = new GridAdapter(this, this.data);
+        pagination = new GridPagination(this, btnPrevious, btnNext, lblLabel, data, pageSize);
+        this.setLayoutManager(new LinearLayoutManager(opener.getCxt()));
+        this.setItemViewCacheSize(this.data.size());
+        this.setAdapter(adapter);
+    }
+
     public void bindData(List<T> data){
         this.data.clear();
         this.data.addAll(data);
@@ -133,7 +138,7 @@ public abstract class AppGridView<T> extends RecyclerView {
     public class GridPagination<T>{
 
         private AppGridView agv;
-        private int pageSize = 3;
+        private int pageSize = 7;
         private int pageIndex=0;
         private int pageTotal;
 
@@ -149,6 +154,35 @@ public abstract class AppGridView<T> extends RecyclerView {
             this.btnNext = btnNext;
             this.data = items;
             this.pageIndex = 0;
+
+            Double s1 = items.size() * 1.0;
+            Double s2 = pageSize * 1.0;
+
+            pageTotal = (int) Math.ceil( Double.valueOf( s1 / s2 ) );
+            setPage(0);
+
+            btnPrevious.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    setPage(pageIndex-1);
+                }
+            });
+            btnNext.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    setPage(pageIndex+1);
+                }
+            });
+        }
+
+        public GridPagination(AppGridView agv, Button btnPrevious, Button btnNext, TextView lblLabel, List<T> items, int pageSize) {
+            this.agv = agv;
+            this.btnPrevious = btnPrevious;
+            this.lblLabel = lblLabel;
+            this.btnNext = btnNext;
+            this.data = items;
+            this.pageIndex = 0;
+            this.pageSize = pageSize;
 
             Double s1 = items.size() * 1.0;
             Double s2 = pageSize * 1.0;
